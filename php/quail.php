@@ -2,7 +2,8 @@
 
 //namespace Quail;
 
-require_once __DIR__ . '/phpquery/phpQuery/phpQuery.php';
+//require_once __DIR__ . '/phpquery/phpQuery/phpQuery.php';
+require_once __DIR__ . '/querypath/src/qp.php';
 require_once 'quailTests.php';
 
 class Quail {
@@ -46,17 +47,27 @@ class Quail {
   /**
    * The current PHPQuery document object
    */
-  protected $document;
+  protected $qp;
 
-  protected $path;
+  /**
+   * A string of CSS selectors
+   */
+  protected $CSSString;
 
+
+  protected $attributeCssMapping = array(
+    'bgcolor' => 'background-color',
+    'text' => 'color',
+    'width' => 'width',
+    'height' => 'height'
+  );
   /**
    * Class constructor.
    * @param string $contents The HTML contents to check for accessibility
    * @param mixed $guideline Either an array of test names, or a string indicating a guideline file
    *   should be loaded dynamically.
    */
-  public function __construct($contents, $path = '', $guideline = 'test', $charset = 'utf-8') {
+  public function __construct($contents, $path = '', $guideline = 'test', $charset = 'utf-8', $section = FALSE) {
     if(!is_array($guideline)) {
       $guideline = json_decode(file_get_contents('../resources/guidelines/'. $guideline .'.json'));
       if(!$guideline) {
@@ -68,11 +79,90 @@ class Quail {
     $this->guideline = $guideline;
     $this->charset = $charset;
     $contents = preg_replace_callback('/<([^ >]*)/', 'quail::lowercaseTags', $contents);
-    try {
-      $this->document = phpQuery::newDocumentXHTML($contents, $charset);
+    if($section) {
+      $this->qp = htmlqp($contents);
     }
-    catch (Exception $e) {
-      $this->document = phpQuery::newDocumentHTML($contents, $charset);
+    else {
+      $this->qp = htmlqp($contents, $section);
+    }
+    $this->addCSS();
+  }
+
+  public function addCSS() {
+    require_once __DIR__ .'/CSSParser/CSSParser.php';
+    $that = $this;
+    $this->cssString = file_get_contents(__DIR__ . '/default.css');
+    return;
+    $this->qp->find('style')->each(function() use ($that) {
+      $this->cssString .= qp($style)->text();
+    });
+    $CssParser = new CSSParser($this->cssString);
+    $CssDocument = $CssParser->parse();
+    foreach($CssDocument->getAllRuleSets() as $ruleset) {
+      foreach($ruleset->getSelector() as $selector) {
+        $specificity = $selector->getSpecificity();
+        foreach($this->qp->find($selector->getSelector()) as $el) {
+          $existing = $el->data('_css');
+          $ruleset->expandShorthands();
+          foreach($ruleset->getRules() as $rule => $value) {
+            if(!isset($existing[$rule]) || $existing[$rule]['specificity'] <= $specificity) {
+              $value = $value->getValue();
+              $value = (is_object($value))
+                        ? $value->__toString()
+                        : $value;
+              $existing[$rule] = array('specificity' => $specificity,
+                                       'value' => $value);
+            }
+          }
+          qp($el)->data('_css', $existing);
+          $this->bubbleCSS(qp($el));
+        }
+      }
+    }
+    foreach($this->qp->find('*') as $el) {
+      $existing = qp($el)->data('_css');
+      $style =  qp($el)->attr('style');
+      $style = strlen($style) ? explode(';', $style) : array();
+      foreach($this->attributeCssMapping as $map => $css_equivalent) {
+        if(qp($el)->attr($map)) {
+          $style[] = $css_equivalent .':'. pq($el)->attr($map);
+        }
+      }
+      if(count($style)) {
+        $CssParser = new CSSParser('#ruleset {'. implode(';', $style) .'}');
+        $CssDocument = $CssParser->parse();
+        $ruleset = $CssDocument->getAllRulesets();
+        $ruleset = reset($ruleset);
+        $ruleset->expandShorthands();
+        foreach($ruleset->getRules() as $rule => $value) {
+          if(!isset($existing[$rule]) || 1000 >= $existing[$rule]['specificity']) {
+            $value = $value->getValue();
+            $value = (is_object($value))
+                      ? $value->__toString()
+                      : $value;
+            $existing[$rule] = array('specificity' => 1000,
+                                     'value' => $value);
+          }
+        }
+        phpQuery::pq($el)->data('_css', $existing);
+        $this->bubbleCSS(qp($el));
+      }
+    }
+  }
+
+  protected function bubbleCSS($element) {
+    $style = $element->data('_css');
+    foreach($element->children() as $element_child) {
+      $existing = qp($element_child)->data('_css');
+      foreach($style as $rule => $value) {
+        if(!isset($existing[$rule]) || $value['specificity'] > $existing[$rule]['specificity']) {
+         $existing[$rule] = $value;
+        }
+      }
+      qp($element_child)->data('_css', $existing);
+      if(qp($element_child)->children()->length) {
+        $this->bubbleCSS(qp($element_child));
+      }
     }
   }
 
@@ -96,14 +186,14 @@ class Quail {
       $test_description = (array)$this->quail_tests[$test_name];
       $test = false;
       if($test_description['type'] == 'custom') {
-          $test = new $test_description['callback']($test_description, $this->document, $this->path);
+          $test = new $test_description['callback']($test_description, $this->qp, $this->path);
       }
       elseif($test_description['type'] == 'selector') {
-        $test = new QuailSelectorTest($test_description['selector'], $this->document, $this->path);
+        $test = new QuailSelectorTest($test_description['selector'], $this->qp, $this->path);
       }
       else {
         $test_class_name = 'Quail'. ucfirst($test_description['type']) .'Test';
-        $test = new $test_class_name($test_description, $this->document, $this->path);
+        $test = new $test_class_name($test_description, $this->qp, $this->path);
       }
       if($test) {
         $this->results[$test_name] = $test->getResults();
@@ -127,7 +217,7 @@ class Quail {
   public function getReport($reporter) {
     $reporter->html = $this->html;
     $reporter->results = $this->results;
-    $reporter->document = $this->document;
+    $reporter->qp = $this->qp;
     return $reporter->getReport();
   }
 
@@ -139,7 +229,7 @@ class QuailReport {
 
   public $html;
 
-  public $document;
+  public $qp;
 
   public function getReport() {
 
@@ -150,7 +240,7 @@ class QuailHTMLReporter extends QuailReport {
 
   public function getReport() {
     if(!is_array($this->results)) {
-      return $this->document->htmlOuter();
+      return $this->qp->html();
     }
     foreach($this->results as $test => $objects) {
       foreach($objects as $node) {
@@ -158,7 +248,7 @@ class QuailHTMLReporter extends QuailReport {
              ->addClass('quail-'. $test);
       }
     }
-    return $this->document->htmlOuter();
+    return $this->qp->html();
   }
 
 }
@@ -169,14 +259,14 @@ class QuailTest {
 
   protected $status = TRUE;
 
-  protected $document;
+  protected $qp;
 
   protected $path;
 
   protected $requiresTextAnalysis = false;
 
-  function __construct($document, $path) {
-    $this->document = $document;
+  function __construct($qp, $path) {
+    $this->qp = $qp;
     $this->path = $path;
     if(!method_exists($this, 'run') && $this->selector) {
       $this->reportSingleSelector($this->selector);
@@ -189,15 +279,15 @@ class QuailTest {
   }
 
   function q($selector) {
-    if(is_object($this->document)) {
-      return pq($selector, $this->document->documentID);
+    if(is_object($this->qp)) {
+      return $this->qp->find($selector);
     }
-    return pq($selector);
+    return FALSE;
   }
 
   function reportSingleSelector($selector) {
     foreach($this->q($selector) as $object) {
-      $this->objects[] = pq($object);
+      $this->objects[] = qp($object);
     }
   }
 
@@ -244,7 +334,7 @@ class QuailTest {
 		}
 		if($children) {
 		  foreach($element->children() as $child) {
-		    if($this->containsReadableText(pq($child), $child)) {
+		    if($this->containsReadableText(qp($child), $child)) {
 		      return TRUE;
 		    }
 		  }
@@ -303,9 +393,9 @@ class QuailCustomTest extends QuailTest{
 
   protected $default_options = array();
 
-  function __construct($options, $document, $path) {
+  function __construct($options, $qp, $path) {
     $this->options = $options + $this->default_options;
-    $this->document = $document;
+    $this->qp = $qp;
     $this->path = $path;
     if($this->requiresTextAnalysis) {
       require_once __DIR__ .'/php-text-statistics/TextStatistics.php';

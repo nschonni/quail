@@ -811,12 +811,12 @@
     },
     "linkUsedForAlternateContent": {
         "type": "selector",
-        "selector": "html:not(html:has(link[rel=alternate]))",
+        "selector": "body:not(html:has(link[rel=alternate]) body)",
         "severity": "suggestion"
     },
     "linkUsedToDescribeNavigation": {
         "type": "selector",
-        "selector": "html:not(html:has(link[rel=index]))",
+        "selector": "body:not(html:has(link[rel=index]) body)",
         "severity": "severe"
     },
     "listNotUsedForFormatting": {
@@ -1055,7 +1055,7 @@
     },
     "skipToContentLinkProvided": {
         "type": "selector",
-        "selector": "body:not(body:has(a:first[href^=#]))",
+        "selector": "body:not(body:has(a[href^=#]:first))",
         "severity": "0"
     },
     "svgContainsTitle": {

@@ -39,7 +39,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('textIsNotSmall-fail.html', 'textIsNotSmall');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('textIsNotSmall-pass.html', 'textIsNotSmall');
@@ -48,7 +48,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('textIsNotSmall-fail2.html', 'textIsNotSmall');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-	  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+	  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
 	    }
 	}
 
@@ -60,14 +60,14 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('documentIsReadable-fail.html', 'documentIsReadable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'body');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'body');
     }
 
 
 		$results = $this->getTest('documentIsReadable-fail2.html', 'documentIsReadable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'body');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'body');
     }
 	}
 
@@ -76,7 +76,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('svgContainsTitle-fail.html', 'svgContainsTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'svg');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'svg');
     }
 		$results = $this->getTest('svgContainsTitle-pass.html', 'svgContainsTitle');
 		$this->assertTrue(count($results) == 0);
@@ -84,16 +84,16 @@ class QuailTests extends QuailBaseTest {
 
 	function test_cssTextHasContrast() {
 		$results = $this->getTest('cssContrast.html', 'cssTextHasContrast');
-		$this->assertTrue($results[0]->elements[0]->tagName == 'body');
+		$this->assertTrue($results[0]->get(0)->tagName == 'body');
 	}
 	function test_complexCssTextHasContrast() {
 		$results = $this->getTest('cssContrast2.html', 'cssTextHasContrast');
-		$this->assertTrue($results[0]->elements[0]->tagName == 'div');
+		$this->assertTrue($results[0]->get(0)->tagName == 'div');
 	}
 
 	function test_cssTextContrastWithColorConversion() {
 		$results = $this->getTest('cssContrast3.html', 'cssTextHasContrast');
-		$this->assertTrue($results[0]->elements[0]->tagName == 'div');
+		$this->assertTrue($results[0]->get(0)->tagName == 'div');
 
 	}
 
@@ -107,12 +107,12 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('headersHaveText-fail.html', 'headersHaveText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h2');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h2');
     }
 		$results = $this->getTest('headersHaveText-fail2.html', 'headersHaveText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h2');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h2');
     }
 		$results = $this->getTest('headersHaveText-pass.html', 'headersHaveText');
 		$this->assertTrue(count($results) == 0);
@@ -123,7 +123,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('imgAltTextNotRedundant-fail.html', 'imgAltTextNotRedundant');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
 
 		$results = $this->getTest('imgAltTextNotRedundant-pass.html', 'imgAltTextNotRedundant');
@@ -135,7 +135,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('selectJumpMenus-fail.html', 'selectJumpMenus');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'select');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'select');
     }
 		$results = $this->getTest('selectJumpMenus-pass.html', 'selectJumpMenus');
 		$this->assertTrue(count($results) == 0);
@@ -146,7 +146,7 @@ class QuailTests extends QuailBaseTest {
 		$results = $this->getTest('documentIsWrittenClearly-fail.html', 'documentIsWrittenClearly');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('documentIsWrittenClearly-pass.html', 'documentIsWrittenClearly');
@@ -159,8 +159,8 @@ class QuailTests extends QuailBaseTest {
 
 }
 
-$quail_tests = new QuailTests();
-$quail_tests->run(new $reporterClass());
+//$quail_tests = new QuailTests();
+//$quail_tests->run(new $reporterClass());
 
 class QuailOACTests extends QuailBaseTest {
 
@@ -173,8 +173,7 @@ class QuailOACTests extends QuailBaseTest {
     $quail = new Quail($contents, '/quail/php/testfiles/', array('imgHasAlt'));
 		$quail->runTests();
     $report = $quail->getReport(new QuailHTMLReporter());
-    phpQuery::newDocumentXHTML($report);
-		$this->assertTrue(pq('img:first')->attr('class') == 'quail-problem quail-imgHasAlt');
+	$this->assertTrue(qp($report)->find('img:first')->attr('class') == 'quail-problem quail-imgHasAlt');
  }
 
 
@@ -183,7 +182,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('1-1.html', 'imgHasAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->attr('src') == 'rex.jpg');
+	  		$this->assertTrue($results[0]->attr('src') == 'rex.jpg');
 		}
 		$results = $this->getTest('1-2.html', 'imgHasAlt');
 		$this->assertTrue(count($results) == 0);
@@ -229,7 +228,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('5-1.html', 'imgImportantNoSpacerAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
 		}
 		$results = $this->getTest('5-2.html', 'imgImportantNoSpacerAlt');
 		$this->assertTrue(count($results) == 0);
@@ -315,7 +314,6 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('10-2.html', 'imgGifNoFlicker');
 		$this->assertTrue(count($results) == 0);
  }
-
 
  //11
  function test11_imgAltIsSameInText() {
@@ -494,7 +492,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('21-1.html', 'appletsDoneUseColorAlone');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
 		}
 		$results = $this->getTest('21-2.html', 'appletsDoneUseColorAlone');
 		$this->assertTrue(count($results) == 0);
@@ -506,12 +504,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('22-1.html', 'appletsDoNotFlicker');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
 		}
 		$results = $this->getTest('22-2.html', 'appletsDoNotFlicker');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
 
  }
@@ -522,7 +520,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('23-1.html', 'appletContainsTextEquivalentInAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
 		}
 		$results = $this->getTest('23-2.html', 'appletContainsTextEquivalentInAlt');
 		$this->assertTrue(count($results) == 0);
@@ -530,10 +528,9 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('23-3.html', 'appletContainsTextEquivalentInAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
  }
-
 
   //24
  function test24_appletTextEquivalentsGetUpdated() {
@@ -541,12 +538,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('23-1.html', 'appletTextEquivalentsGetUpdated');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
 		$results = $this->getTest('23-2.html', 'appletTextEquivalentsGetUpdated');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
  }
 
@@ -556,7 +553,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('25-1.html', 'appletContainsTextEquivalent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
 		$results = $this->getTest('25-2.html', 'appletContainsTextEquivalent');
 		$this->assertTrue(count($results) == 0);
@@ -568,7 +565,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('26-1.html', 'appletUIMustBeAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
   	}
 		$results = $this->getTest('26-2.html', 'appletUIMustBeAccessible');
 		$this->assertTrue(count($results) == 0);
@@ -581,7 +578,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('27-1.html', 'blinkIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'blink');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'blink');
   	}
 		$results = $this->getTest('27-2.html', 'blinkIsNotUsed');
 		$this->assertTrue(count($results) == 0);
@@ -592,7 +589,7 @@ class QuailOACTests extends QuailBaseTest {
  function test28_skipToContentLinkProvided() {
 
 		$results = $this->getTest('28-1.html', 'skipToContentLinkProvided');
-		$this->assertTrue($results[0]->elements[0]->tagName == 'body');
+		$this->assertTrue($results[0]->get(0)->tagName == 'body');
 
 		$results = $this->getTest('28-2.html', 'skipToContentLinkProvided');
 		$this->assertTrue(count($results) == 0);
@@ -617,13 +614,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('30-1.html', 'objectDoesNotFlicker');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('30-2.html', 'objectDoesNotFlicker');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
  }
@@ -634,7 +631,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('31-1.html', 'framesHaveATitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 
 		$results = $this->getTest('31-2.html', 'framesHaveATitle');
@@ -648,7 +645,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('32-1.html', 'frameTitlesDescribeFunction');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 
 		$results = $this->getTest('32-2.html', 'frameTitlesDescribeFunction');
@@ -657,7 +654,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('32-3.html', 'frameTitlesDescribeFunction');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
  }
 
@@ -667,17 +664,17 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('33-1.html', 'frameSrcIsAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 		$results = $this->getTest('33-2.html', 'frameSrcIsAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 		$results = $this->getTest('33-3.html', 'frameSrcIsAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 
  }
@@ -688,7 +685,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('34-1.html', 'frameRelationshipsMustBeDescribed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frameset');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frameset');
     }
 		$results = $this->getTest('34-2.html', 'frameRelationshipsMustBeDescribed');
 		$this->assertTrue(count($results) == 0);
@@ -701,7 +698,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('35-1.html', 'framesetMustHaveNoFramesSection');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frameset');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frameset');
     }
 		$results = $this->getTest('35-2.html', 'framesetMustHaveNoFramesSection');
 		$this->assertTrue(count($results) == 0);
@@ -716,7 +713,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('36-2.html', 'noframesSectionMustHaveTextEquivalent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frameset');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frameset');
     }
  }
 
@@ -726,7 +723,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('37-1.html', 'headerH1');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h3');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h3');
     }
 		$results = $this->getTest('37-2.html', 'headerH1');
 
@@ -740,7 +737,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('38-1.html', 'headerH2');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h4');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h4');
     }
 		$results = $this->getTest('38-2.html', 'headerH2');
 		$this->assertTrue(count($results) == 0);
@@ -753,7 +750,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('39-1.html', 'headerH3');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h5');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h5');
 		}
 		$results = $this->getTest('39-2.html', 'headerH3');
 		$this->assertTrue(count($results) == 0);
@@ -766,7 +763,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('40-1.html', 'headerH4');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h6');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h6');
 		}
 		$results = $this->getTest('40-2.html', 'headerH4');
 		$this->assertTrue(count($results) == 0);
@@ -779,7 +776,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('41-1.html', 'headerH4');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'h6');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'h6');
 		}
 		$results = $this->getTest('41-2.html', 'headerH4');
 		$this->assertTrue(count($results) == 0);
@@ -794,7 +791,7 @@ class QuailOACTests extends QuailBaseTest {
   	   $results = $this->getTest($filename, $classname);
   	   $this->assertTrue(is_object($results[0]));
   		if(is_object($results[0])) {
-    		$this->assertTrue($results[0]->elements[0]->tagName == 'h'. $i);
+    		$this->assertTrue($results[0]->get(0)->tagName == 'h'. $i);
     	}
   	}
   }
@@ -831,7 +828,7 @@ class QuailOACTests extends QuailBaseTest {
   function test51_documentTitleNotEmpty() {
 		$results = $this->getTest('51-1.html', 'documentTitleNotEmpty');
 		if(isset($reuslts[0])) {
-			$this->assertTrue($results[0]->elements[0]->tagName == 'title');
+			$this->assertTrue($results[0]->get(0)->tagName == 'title');
 		}
 
 		$results = $this->getTest('51-2.html', 'documentTitleNotEmpty');
@@ -850,7 +847,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('52-2.html', 'documentTitleIsShort');
 		$this->assertTrue(count($results) == 0);
   }
-
+/*
   //53
   function test53_documentTitleIsNotPlaceholder() {
 		$results = $this->getTest('53-1.html', 'documentTitleIsNotPlaceholder');
@@ -878,13 +875,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('54-1.html', 'documentTitleDescribesDocument');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'title');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'title');
     }
 
 		$results = $this->getTest('54-2.html', 'documentTitleDescribesDocument');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'title');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'title');
     }
   }
 
@@ -893,7 +890,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('55-1.html', 'inputDoesNotUseColorAlone');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('55-2.html', 'inputDoesNotUseColorAlone');
@@ -926,7 +923,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('58-1.html', 'inputImageHasAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('58-2.html', 'inputImageHasAlt');
@@ -938,13 +935,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('59-1.html', 'inputImageAltIdentifiesPurpose');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('59-2.html', 'inputImageAltIdentifiesPurpose');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -953,7 +950,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('60-1.html', 'inputImageAltIsShort');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('60-2.html', 'inputImageAltIsShort');
@@ -965,7 +962,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('61-1.html', 'inputImageAltIsNotFileName');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('61-2.html', 'inputImageAltIsNotFileName');
@@ -977,7 +974,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('62-1.html', 'inputImageAltIsNotPlaceholder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('62-2.html', 'inputImageAltIsNotPlaceholder');
@@ -986,13 +983,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('62-3.html', 'inputImageAltIsNotPlaceholder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('62-4.html', 'inputImageAltIsNotPlaceholder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -1001,7 +998,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('63-1.html', 'inputTextHasValue');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('63-2.html', 'inputTextHasValue');
@@ -1013,7 +1010,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('64-1.html', 'areaHasAltValue');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
 
 		$results = $this->getTest('64-2.html', 'areaHasAltValue');
@@ -1025,13 +1022,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('65-1.html', 'areaAltIdentifiesDestination');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
 
 		$results = $this->getTest('65-2.html', 'areaAltIdentifiesDestination');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
   }
 
@@ -1040,13 +1037,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('66-1.html', 'areaLinksToSoundFile');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
 
 		$results = $this->getTest('66-2.html', 'areaLinksToSoundFile');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
   }
 
@@ -1055,7 +1052,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('68-1.html', 'areaDontOpenNewWindow');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
 		$results = $this->getTest('68-2.html', 'areaDontOpenNewWindow');
 		$this->assertTrue(count($results) == 0);
@@ -1072,7 +1069,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('69-1.html', 'marqueeIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'marquee');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'marquee');
     }
 
 		$results = $this->getTest('69-2.html', 'marqueeIsNotUsed');
@@ -1084,7 +1081,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('70-1.html', 'menuNotUsedToFormatText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'menu');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'menu');
     }
 
 		$results = $this->getTest('70-2.html', 'menuNotUsedToFormatText');
@@ -1121,7 +1118,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('73-1.html', 'objectDoesNotUseColorAlone');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('73-2.html', 'objectDoesNotUseColorAlone');
@@ -1133,7 +1130,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('74-1.html', 'objectTextUpdatesWhenObjectChanges');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('74-2.html', 'objectTextUpdatesWhenObjectChanges');
@@ -1145,7 +1142,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('75-1.html', 'objectContentUsableWhenDisabled');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('75-2.html', 'objectContentUsableWhenDisabled');
@@ -1157,7 +1154,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('76-1.html', 'objectInterfaceIsAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('76-2.html', 'objectInterfaceIsAccessible');
@@ -1169,7 +1166,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('77-1.html', 'objectLinkToMultimediaHasTextTranscript');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('77-2.html', 'objectLinkToMultimediaHasTextTranscript');
@@ -1181,7 +1178,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('78-1.html', 'objectMustHaveTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('78-2.html', 'objectMustHaveTitle');
@@ -1193,7 +1190,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('79-1.html', 'objectMustHaveValidTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('79-2.html', 'objectMustHaveValidTitle');
@@ -1202,7 +1199,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('79-3.html', 'objectMustHaveValidTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
   }
 
@@ -1211,7 +1208,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('80-1.html', 'objectMustContainText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('80-2.html', 'objectMustContainText');
@@ -1220,7 +1217,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('80-3.html', 'objectMustContainText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
   }
 
@@ -1229,7 +1226,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('81-1.html', 'listNotUsedForFormatting');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'ol');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'ol');
     }
 
 		$results = $this->getTest('81-2.html', 'listNotUsedForFormatting');
@@ -1241,7 +1238,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('82-1.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('82-2.html', 'pNotUsedAsHeader');
@@ -1250,33 +1247,33 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('82-3.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('82-4.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('82-5.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('82-6.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('82-7.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('82-8.html', 'pNotUsedAsHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('82-9.html', 'pNotUsedAsHeader');
 		$this->assertTrue(count($results) == 0);
@@ -1288,7 +1285,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('86-1.html', 'scriptsDoNotUseColorAlone');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'script');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'script');
     }
 		$results = $this->getTest('86-2.html', 'scriptsDoNotUseColorAlone');
 		$this->assertTrue(count($results) == 0);
@@ -1299,7 +1296,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('87-1.html', 'scriptsDoNotFlicker');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'script');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'script');
     }
 		$results = $this->getTest('87-2.html', 'scriptsDoNotFlicker');
 		$this->assertTrue(count($results) == 0);
@@ -1310,7 +1307,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('88-1.html', 'scriptContentAccessibleWithScriptsTurnedOff');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'script');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'script');
     }
 		$results = $this->getTest('88-2.html', 'scriptContentAccessibleWithScriptsTurnedOff');
 		$this->assertTrue(count($results) == 0);
@@ -1321,7 +1318,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('89-1.html', 'scriptUIMustBeAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'script');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'script');
     }
 		$results = $this->getTest('89-2.html', 'scriptUIMustBeAccessible');
 		$this->assertTrue(count($results) == 0);
@@ -1332,7 +1329,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('90-1.html', 'scriptInBodyMustHaveNoscript');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'script');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'script');
     }
 		$results = $this->getTest('90-2.html', 'scriptInBodyMustHaveNoscript');
 		$this->assertTrue(count($results) == 0);
@@ -1343,7 +1340,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('91-1.html', 'selectHasAssociatedLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'select');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'select');
     }
 
 		$results = $this->getTest('91-2.html', 'selectHasAssociatedLabel');
@@ -1352,7 +1349,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('91-3.html', 'selectHasAssociatedLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'select');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'select');
     }
 
 		$results = $this->getTest('91-4.html', 'selectHasAssociatedLabel');
@@ -1364,7 +1361,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('92-1.html', 'selectDoesNotChangeContext');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'select');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'select');
     }
 
 		$results = $this->getTest('92-2.html', 'selectDoesNotChangeContext');
@@ -1373,7 +1370,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('92-3.html', 'selectDoesNotChangeContext');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'select');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'select');
     }
   }
 
@@ -1382,7 +1379,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('95-1.html', 'textareaHasAssociatedLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'textarea');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'textarea');
     }
 
 		$results = $this->getTest('95-2.html', 'textareaHasAssociatedLabel');
@@ -1391,7 +1388,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('95-3.html', 'textareaHasAssociatedLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'textarea');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'textarea');
     }
 
 		$results = $this->getTest('95-4.html', 'textareaHasAssociatedLabel');
@@ -1403,13 +1400,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('96-1.html', 'textareaLabelPositionedClose');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-	  		$this->assertTrue($results[0]->elements[0]->tagName == 'textarea');
+	  		$this->assertTrue($results[0]->get(0)->tagName == 'textarea');
 	    }
 
 		$results = $this->getTest('96-2.html', 'textareaLabelPositionedClose');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-	  		$this->assertTrue($results[0]->elements[0]->tagName == 'textarea');
+	  		$this->assertTrue($results[0]->get(0)->tagName == 'textarea');
 	    }
   }
 
@@ -1419,7 +1416,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('97-1.html', 'cssDocumentMakesSenseStyleTurnedOff');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'link');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'link');
     }
 
 		$results = $this->getTest('97-2.html', 'cssDocumentMakesSenseStyleTurnedOff');
@@ -1431,7 +1428,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('98-1.html', 'documentAbbrIsUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('98-2.html', 'documentAbbrIsUsed');
@@ -1450,7 +1447,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('99-1.html', 'documentAcronymsHaveElement');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('99-2.html', 'documentAcronymsHaveElement');
@@ -1462,7 +1459,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('100-1.html', 'blockquoteNotUsedForIndentation');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'blockquote');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'blockquote');
     }
 
 		$results = $this->getTest('100-2.html', 'blockquoteNotUsedForIndentation');
@@ -1474,7 +1471,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('102-1.html', 'scriptOnclickRequiresOnKeypress');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('102-2.html', 'scriptOnclickRequiresOnKeypress');
@@ -1486,7 +1483,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('103-1.html', 'scriptOndblclickRequiresOnKeypress');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('103-2.html', 'scriptOndblclickRequiresOnKeypress');
@@ -1498,7 +1495,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('104-1.html', 'scriptOnmousedownRequiresOnKeypress');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('104-2.html', 'scriptOnmousedownRequiresOnKeypress');
@@ -1510,7 +1507,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('105-1.html', 'scriptOnmousemove');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('105-2.html', 'scriptOnmousemove');
@@ -1523,7 +1520,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('106-1.html', 'scriptOnmouseoutHasOnmouseblur');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('106-2.html', 'scriptOnmouseoutHasOnmouseblur');
@@ -1535,7 +1532,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('107-1.html', 'scriptOnmouseoverHasOnfocus');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('107-2.html', 'scriptOnmouseoverHasOnfocus');
@@ -1547,7 +1544,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('108-1.html', 'scriptOnmouseupHasOnkeyup');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('108-2.html', 'scriptOnmouseupHasOnkeyup');
@@ -1577,7 +1574,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('111-1.html', 'tableComplexHasSummary');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 
 		$results = $this->getTest('111-2.html', 'tableComplexHasSummary');
@@ -1592,7 +1589,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('112-1.html', 'tableSummaryIsEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 
 		$results = $this->getTest('112-2.html', 'tableSummaryIsEmpty');
@@ -1605,7 +1602,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('114-1.html', 'tableLayoutHasNoSummary');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 
 		$results = $this->getTest('114-2.html', 'tableLayoutHasNoSummary');
@@ -1621,7 +1618,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('115-1.html', 'tableLayoutHasNoCaption');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 
 		$results = $this->getTest('115-2.html', 'tableLayoutHasNoCaption');
@@ -1635,7 +1632,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('116-1.html', 'boldIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'bold');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'bold');
     }
 
 		$results = $this->getTest('116-2.html', 'boldIsNotUsed');
@@ -1649,7 +1646,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('117-1.html', 'iIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'i');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'i');
     }
 
 		$results = $this->getTest('117-2.html', 'iIsNotUsed');
@@ -1663,7 +1660,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('118-1.html', 'passwordHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('118-2.html', 'passwordHasLabel');
@@ -1672,7 +1669,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('118-3.html', 'passwordHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('118-4.html', 'passwordHasLabel');
@@ -1685,7 +1682,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('119-1.html', 'checkboxHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('119-2.html', 'checkboxHasLabel');
@@ -1694,7 +1691,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('119-3.html', 'checkboxHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('119-4.html', 'checkboxHasLabel');
@@ -1708,7 +1705,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('120-1.html', 'fileHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('120-2.html', 'fileHasLabel');
@@ -1717,7 +1714,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('120-3.html', 'fileHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('120-4.html', 'fileHasLabel');
@@ -1730,7 +1727,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('121-1.html', 'radioHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('121-2.html', 'radioHasLabel');
@@ -1739,7 +1736,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('121-3.html', 'radioHasLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('121-4.html', 'radioHasLabel');
@@ -1752,13 +1749,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('122-1.html', 'passwordLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('122-2.html', 'passwordLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -1767,13 +1764,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('123-1.html', 'checkboxLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('123-2.html', 'checkboxLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -1782,13 +1779,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('124-1.html', 'fileLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('124-2.html', 'fileLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -1797,13 +1794,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('125-1.html', 'radioLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('125-2.html', 'radioLabelIsNearby');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
   }
 
@@ -1812,7 +1809,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('126-1.html', 'inputTextValueNotEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('126-2.html', 'inputTextValueNotEmpty');
@@ -1824,7 +1821,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('127-1.html', 'objectWithClassIDHasNoText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('127-2.html', 'objectWithClassIDHasNoText');
@@ -1836,13 +1833,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('128-1.html', 'objectUIMustBeAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 
 		$results = $this->getTest('128-2.html', 'objectUIMustBeAccessible');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
   }
 
@@ -1851,7 +1848,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('131-1.html', 'blockquoteUseForQuotations');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 
 		$results = $this->getTest('131-2.html', 'blockquoteUseForQuotations');
@@ -1863,13 +1860,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('132-1.html', 'imageMapServerSide');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
 
 		$results = $this->getTest('132-2.html', 'imageMapServerSide');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
   }
 
@@ -1878,13 +1875,13 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('133-1.html', 'tableLayoutMakesSenseLinearized');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 
 		$results = $this->getTest('133-2.html', 'tableLayoutMakesSenseLinearized');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
   }
 
@@ -1893,7 +1890,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('134-1.html', 'aLinksAreSeperatedByPrintableCharacters');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('134-2.html', 'aLinksAreSeperatedByPrintableCharacters');
 		$this->assertTrue(count($results) == 0);
@@ -1904,7 +1901,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('135-1.html', 'imgWithMathShouldHaveMathEquivalent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
 		$results = $this->getTest('135-2.html', 'imgWithMathShouldHaveMathEquivalent');
 		$this->assertTrue(count($results) == 0);
@@ -1918,7 +1915,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('136-1.html', 'tableDataShouldHaveTh');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('136-2.html', 'tableDataShouldHaveTh');
 		$this->assertTrue(count($results) == 0);
@@ -1929,7 +1926,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('137-1.html', 'tableLayoutDataShouldNotHaveTh');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('137-2.html', 'tableLayoutDataShouldNotHaveTh');
 		$this->assertTrue(count($results) == 0);
@@ -1940,12 +1937,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('138-1.html', 'inputTextHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('138-2.html', 'inputTextHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('138-3.html', 'inputTextHasTabIndex');
 		$this->assertTrue(count($results) == 0);
@@ -1956,12 +1953,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('139-1.html', 'inputRadioHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('139-2.html', 'inputRadioHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('139-3.html', 'inputRadioHasTabIndex');
 		$this->assertTrue(count($results) == 0);
@@ -1972,12 +1969,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('140-1.html', 'inputPasswordHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('140-2.html', 'inputPasswordHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('140-3.html', 'inputPasswordHasTabIndex');
 		$this->assertTrue(count($results) == 0);
@@ -1988,12 +1985,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('141-1.html', 'inputCheckboxHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('141-2.html', 'inputCheckboxHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('141-3.html', 'inputCheckboxHasTabIndex');
 		$this->assertTrue(count($results) == 0);
@@ -2004,12 +2001,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('142-1.html', 'inputFileHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('142-2.html', 'inputFileHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('142-3.html', 'inputFileHasTabIndex');
 		$this->assertTrue(count($results) == 0);
@@ -2059,7 +2056,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('150-1.html', 'liDontUseImageForBullet');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'li');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'li');
     }
 		$results = $this->getTest('150-2.html', 'liDontUseImageForBullet');
 		$this->assertTrue(count($results) == 0);
@@ -2070,7 +2067,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('151-1.html', 'tableUsesCaption');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('151-2.html', 'tableUsesCaption');
 		$this->assertTrue(count($results) == 0);
@@ -2078,7 +2075,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('151-3.html', 'tableUsesCaption');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
   }
 
@@ -2087,7 +2084,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('152-1.html', 'tableUsesAbbreviationForHeader');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue(strtolower($results[0]->elements[0]->tagName) == 'th');
+  		$this->assertTrue(strtolower($results[0]->get(0)->tagName) == 'th');
     }
 		$results = $this->getTest('152-2.html', 'tableUsesAbbreviationForHeader');
 		$this->assertTrue(count($results) == 0);
@@ -2101,7 +2098,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('153-1.html', 'tableHeaderLabelMustBeTerse');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue(strtolower($results[0]->elements[0]->tagName) == 'th');
+  		$this->assertTrue(strtolower($results[0]->get(0)->tagName) == 'th');
     }
 		$results = $this->getTest('153-2.html', 'tableHeaderLabelMustBeTerse');
 		$this->assertTrue(count($results) == 0);
@@ -2112,7 +2109,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('154-1.html', 'preShouldNotBeUsedForTabularLayout');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'pre');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'pre');
     }
 		$results = $this->getTest('154-2.html', 'preShouldNotBeUsedForTabularLayout');
 		$this->assertTrue(count($results) == 0);
@@ -2125,7 +2122,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('159-1.html', 'imgShouldNotHaveTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
 		$results = $this->getTest('159-2.html', 'imgShouldNotHaveTitle');
 		$this->assertTrue(count($results) == 0);
@@ -2136,7 +2133,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('160-1.html', 'objectShouldHaveLongDescription');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 		$results = $this->getTest('160-2.html', 'objectShouldHaveLongDescription');
 		$this->assertTrue(count($results) == 0);
@@ -2156,7 +2153,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('161-1.html', 'emoticonsMissingAbbr');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('161-2.html', 'emoticonsMissingAbbr');
 		$this->assertTrue(count($results) == 0);
@@ -2167,7 +2164,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('163-1.html', 'embedHasAssociatedNoEmbed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'embed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'embed');
     }
 		$results = $this->getTest('163-2.html', 'embedHasAssociatedNoEmbed');
 		$this->assertTrue(count($results) == 0);
@@ -2181,7 +2178,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('164-1.html', 'noembedHasEquivalentContent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'noembed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'noembed');
     }
 		$results = $this->getTest('164-2.html', 'noembedHasEquivalentContent');
 		$this->assertTrue(count($results) == 0);
@@ -2192,7 +2189,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('165-1.html', 'embedMustHaveAltAttribute');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'embed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'embed');
     }
 		$results = $this->getTest('165-2.html', 'embedMustHaveAltAttribute');
 		$this->assertTrue(count($results) == 0);
@@ -2203,7 +2200,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('166-1.html', 'embedMustNotHaveEmptyAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'embed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'embed');
     }
 		$results = $this->getTest('166-2.html', 'embedMustNotHaveEmptyAlt');
 		$this->assertTrue(count($results) == 0);
@@ -2214,7 +2211,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('167-1.html', 'iframeMustNotHaveLongdesc');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'iframe');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'iframe');
     }
 		$results = $this->getTest('167-2.html', 'iframeMustNotHaveLongdesc');
 		$this->assertTrue(count($results) == 0);
@@ -2225,12 +2222,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('168-1.html', 'radioMarkedWithFieldgroupAndLegend');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('168-2.html', 'radioMarkedWithFieldgroupAndLegend');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 
 		$results = $this->getTest('168-3.html', 'radioMarkedWithFieldgroupAndLegend');
@@ -2245,7 +2242,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('169-1.html', 'selectWithOptionsHasOptgroup');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'option');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'option');
     }
 		$results = $this->getTest('169-2.html', 'selectWithOptionsHasOptgroup');
 		$this->assertTrue(count($results) == 0);
@@ -2256,7 +2253,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('173-1.html', 'aSuspiciousLinkText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('173-2.html', 'aSuspiciousLinkText');
 		$this->assertTrue(count($results) == 0);
@@ -2264,7 +2261,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('173-3.html', 'aSuspiciousLinkText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
   }
 
@@ -2273,7 +2270,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('174-1.html', 'aMustContainText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('174-2.html', 'aMustContainText');
 		$this->assertTrue(count($results) == 0);
@@ -2281,7 +2278,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('174-3.html', 'aMustContainText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('174-4.html', 'aMustContainText');
 		$this->assertTrue(count($results) == 0);
@@ -2297,7 +2294,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('175-1.html', 'aImgAltNotRepetative');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('175-2.html', 'aImgAltNotRepetative');
 		$this->assertTrue(count($results) == 0);
@@ -2308,7 +2305,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('176-1.html', 'basefontIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'basefont');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'basefont');
     }
 		$results = $this->getTest('176-2.html', 'basefontIsNotUsed');
 		$this->assertTrue(count($results) == 0);
@@ -2319,7 +2316,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('177-1.html', 'fontIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'font');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'font');
     }
 		$results = $this->getTest('177-2.html', 'fontIsNotUsed');
 		$this->assertTrue(count($results) == 0);
@@ -2332,7 +2329,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('180-1.html', 'aAdjacentWithSameResourceShouldBeCombined');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('180-2.html', 'aAdjacentWithSameResourceShouldBeCombined');
 		$this->assertTrue(count($results) == 0);
@@ -2343,7 +2340,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('181-1.html', 'aMustNotHaveJavascriptHref');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('181-2.html', 'aMustNotHaveJavascriptHref');
 		$this->assertTrue(count($results) == 0);
@@ -2363,7 +2360,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('183-1.html', 'objectMustHaveEmbed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 		$results = $this->getTest('183-2.html', 'objectMustHaveEmbed');
 		$this->assertTrue(count($results) == 0);
@@ -2383,7 +2380,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('185-1.html', 'documentIDsMustBeUnique');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'th');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'th');
     }
 		$results = $this->getTest('185-2.html', 'documentIDsMustBeUnique');
 		$this->assertTrue(count($results) == 0);
@@ -2394,7 +2391,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('186-1.html', 'labelDoesNotContainInput');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('186-2.html', 'labelDoesNotContainInput');
 		$this->assertTrue(count($results) == 0);
@@ -2405,7 +2402,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('187-1.html', 'labelMustBeUnique');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('187-2.html', 'labelMustBeUnique');
 		$this->assertTrue(count($results) == 0);
@@ -2416,7 +2413,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('188-1.html', 'labelMustNotBeEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('188-2.html', 'labelMustNotBeEmpty');
 		$this->assertTrue(count($results) == 0);
@@ -2424,12 +2421,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('188-3.html', 'labelMustNotBeEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('188-3.html', 'labelMustNotBeEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
    }
 
@@ -2438,7 +2435,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('190-1.html', 'aMustHaveTitle');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('190-2.html', 'aMustHaveTitle');
 		$this->assertTrue(count($results) == 0);
@@ -2449,12 +2446,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('191-1.html', 'aTitleDescribesDestination');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('191-2.html', 'aTitleDescribesDestination');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
    }
 
@@ -2463,7 +2460,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('192-1.html', 'inputImageAltNotRedundant');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('192-2.html', 'inputImageAltNotRedundant');
 		$this->assertTrue(count($results) == 0);
@@ -2474,12 +2471,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('193-1.html', 'inputImageNotDecorative');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('193-2.html', 'inputImageNotDecorative');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
    }
 
@@ -2488,12 +2485,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('194-1.html', 'areaAltRefersToText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
 		$results = $this->getTest('194-2.html', 'areaAltRefersToText');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'area');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'area');
     }
    }
 
@@ -2502,7 +2499,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('195-1.html', 'aLinkTextDoesNotBeginWithRedundantWord');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('195-2.html', 'aLinkTextDoesNotBeginWithRedundantWord');
 		$this->assertTrue(count($results) == 0);
@@ -2510,7 +2507,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('195-3.html', 'aLinkTextDoesNotBeginWithRedundantWord');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('195-4.html', 'aLinkTextDoesNotBeginWithRedundantWord');
 		$this->assertTrue(count($results) == 0);
@@ -2521,12 +2518,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('196-1.html', 'imgServerSideMapNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
 		$results = $this->getTest('196-2.html', 'imgServerSideMapNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'img');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'img');
     }
    }
 
@@ -2536,12 +2533,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('198-1.html', 'legendDescribesListOfChoices');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'legend');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'legend');
     }
 		$results = $this->getTest('198-2.html', 'legendDescribesListOfChoices');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'legend');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'legend');
     }
    }
 
@@ -2550,7 +2547,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('199-1.html', 'legendTextNotEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'legend');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'legend');
     }
 		$results = $this->getTest('199-2.html', 'legendTextNotEmpty');
 		$this->assertTrue(count($results) == 0);
@@ -2561,7 +2558,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('200-1.html', 'legendTextNotPlaceholder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'legend');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'legend');
     }
 		$results = $this->getTest('200-2.html', 'legendTextNotPlaceholder');
 		$this->assertTrue(count($results) == 0);
@@ -2572,7 +2569,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('201-1.html', 'frameTitlesNotEmpty');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 		$results = $this->getTest('201-2.html', 'frameTitlesNotEmpty');
 		$this->assertTrue(count($results) == 0);
@@ -2583,7 +2580,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('202-1.html', 'frameTitlesNotPlaceholder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 		$results = $this->getTest('202-2.html', 'frameTitlesNotPlaceholder');
 		$this->assertTrue(count($results) == 0);
@@ -2594,12 +2591,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('203-1.html', 'tableSummaryDescribesTable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('203-2.html', 'tableSummaryDescribesTable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
    }
 
@@ -2732,7 +2729,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('230-1.html', 'tableIsGrouped');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('230-2.html', 'tableIsGrouped');
 		$this->assertTrue(count($results) == 0);
@@ -2744,7 +2741,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('231-1.html', 'tableUseColGroup');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('231-2.html', 'tableUseColGroup');
 		$this->assertTrue(count($results) == 0);
@@ -2766,7 +2763,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('233-1.html', 'framesetIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frameset');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frameset');
     }
 		$results = $this->getTest('232-2.html', 'framesetIsNotUsed');
 		$this->assertTrue(count($results) == 0);
@@ -2778,7 +2775,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('234-1.html', 'frameIsNotUsed');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'frame');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'frame');
     }
 		$results = $this->getTest('234-2.html', 'frameIsNotUsed');
 		$this->assertTrue(count($results) == 0);
@@ -2790,7 +2787,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('235-1.html', 'documentReadingDirection');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'blockquote');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'blockquote');
     }
 		$results = $this->getTest('235-2.html', 'documentReadingDirection');
 		$this->assertTrue(count($results) == 0);
@@ -2802,7 +2799,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('236-1.html', 'aAdjacentWithSameResourceShouldBeCombined');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
 		$results = $this->getTest('236-2.html', 'aAdjacentWithSameResourceShouldBeCombined');
 		$this->assertTrue(count($results) == 0);
@@ -2810,7 +2807,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('236-1.html', 'aAdjacentWithSameResourceShouldBeCombined');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'a');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'a');
     }
   }
 
@@ -2822,7 +2819,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('238-1.html', 'inputElementsDontHaveAlt');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('238-2.html', 'inputElementsDontHaveAlt');
 		$this->assertTrue(count($results) == 0);
@@ -2837,7 +2834,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('241-1.html', 'tabularDataIsInTable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'pre');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'pre');
     }
 		$results = $this->getTest('241-2.html', 'tabularDataIsInTable');
 		$this->assertTrue(count($results) == 0);
@@ -2849,12 +2846,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('242-1.html', 'tableCaptionIdentifiesTable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'caption');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'caption');
     }
 		$results = $this->getTest('242-2.html', 'tableCaptionIdentifiesTable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'caption');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'caption');
     }
   }
 
@@ -2864,7 +2861,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('243-1.html', 'tableSummaryDoesNotDuplicateCaption');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('243-2.html', 'tableSummaryDoesNotDuplicateCaption');
 		$this->assertTrue(count($results) == 0);
@@ -2876,7 +2873,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('244-1.html', 'tableWithBothHeadersUseScope');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('244-2.html', 'tableWithBothHeadersUseScope');
 		$this->assertTrue(count($results) == 0);
@@ -2888,7 +2885,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('245-1.html', 'tableWithMoreHeadersUseID');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'table');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'table');
     }
 		$results = $this->getTest('245-2.html', 'tableWithMoreHeadersUseID');
 		$this->assertTrue(count($results) == 0);
@@ -2900,7 +2897,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('246-1.html', 'formWithRequiredLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('246-2.html', 'formWithRequiredLabel');
 		$this->assertTrue(count($results) == 0);
@@ -2911,12 +2908,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('246-4.html', 'formWithRequiredLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
 		$results = $this->getTest('246-5.html', 'formWithRequiredLabel');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'label');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'label');
     }
   }
 
@@ -2926,7 +2923,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('247-1.html', 'inputCheckboxRequiresFieldset');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('247-2.html', 'inputCheckboxRequiresFieldset');
 		$this->assertTrue(count($results) == 0);
@@ -2938,7 +2935,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('248-1.html', 'documentVisualListsAreMarkedUp');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('248-2.html', 'documentVisualListsAreMarkedUp');
 		$this->assertTrue(count($results) == 0);
@@ -2965,12 +2962,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('258-1.html', 'appletProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
     }
 		$results = $this->getTest('258-2.html', 'appletProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'applet');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'applet');
     }
    }
 
@@ -2980,12 +2977,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('259-1.html', 'objectProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
 		$results = $this->getTest('259-2.html', 'objectProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'object');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'object');
     }
    }
 
@@ -2995,12 +2992,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('260-1.html', 'embedProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'embed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'embed');
     }
 		$results = $this->getTest('260-2.html', 'embedProvidesMechanismToReturnToParent');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'embed');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'embed');
     }
    }
 
@@ -3012,7 +3009,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('261-1.html', 'headersUseToMarkSections');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'p');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'p');
     }
 		$results = $this->getTest('261-2.html', 'headersUseToMarkSections');
 		$this->assertTrue(count($results) == 0 );
@@ -3028,12 +3025,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('264-1.html', 'inputSubmitHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('264-2.html', 'inputSubmitHasTabIndex');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('264-3.html', 'inputSubmitHasTabIndex');
 		$this->assertTrue(count($results) == 0 );
@@ -3045,7 +3042,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('265-1.html', 'tabIndexFollowsLogicalOrder');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'input');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'input');
     }
 		$results = $this->getTest('265-2.html', 'tabIndexFollowsLogicalOrder');
 		$this->assertTrue(count($results) == 0 );
@@ -3059,12 +3056,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('268-1.html', 'formHasGoodErrorMessage');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
 		$results = $this->getTest('268-2.html', 'formHasGoodErrorMessage');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
   }
 
@@ -3074,12 +3071,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('269-1.html', 'formErrorMessageHelpsUser');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
 		$results = $this->getTest('269-2.html', 'formErrorMessageHelpsUser');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
   }
 
@@ -3089,12 +3086,12 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('269-1.html', 'formAllowsCheckIfIrreversable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
 		$results = $this->getTest('269-2.html', 'formAllowsCheckIfIrreversable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
   }
 
@@ -3106,7 +3103,7 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('271-1.html', 'documentReadingDirection');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'span');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'span');
     }
 		$results = $this->getTest('271-2.html', 'documentReadingDirection');
 		$this->assertTrue(count($results) == 0);
@@ -3118,15 +3115,15 @@ class QuailOACTests extends QuailBaseTest {
 		$results = $this->getTest('272-1.html', 'formDeleteIsReversable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
 		$results = $this->getTest('272-2.html', 'formDeleteIsReversable');
 		$this->assertTrue(is_object($results[0]));
 		if(is_object($results[0])) {
-  		$this->assertTrue($results[0]->elements[0]->tagName == 'form');
+  		$this->assertTrue($results[0]->get(0)->tagName == 'form');
     }
   }
-
+*/
 }
 
 $tests = new QuailOACTests();

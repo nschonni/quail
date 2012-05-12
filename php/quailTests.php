@@ -24,8 +24,8 @@ class aAdjacentWithSameResourceShouldBeCombined extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('a') as $el) {
-      if(pq($el)->next('a')->attr('href') == pq($el)->attr('href')) {
-        $this->objects[] = pq($el);
+      if(qp($el)->next('a')->attr('href') == qp($el)->attr('href')) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -43,8 +43,8 @@ class appletContainsTextEquivalent extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('applet[alt=], applet:not(applet[alt])') as $el) {
-      if(!strlen(trim(pq($el)->text()))) {
-        $this->objects[] = pq($el);
+      if(!strlen(trim(qp($el)->text()))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -62,8 +62,8 @@ class aImgAltNotRepetative extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('a img[alt]') as $el) {
-      if(trim(pq($el)->attr('alt')) == trim(pq($el)->parent('a')->text())) {
-        $this->objects[] = pq($el)->parent('a');
+      if(trim(qp($el)->attr('alt')) == trim(qp($el)->parent('a')->text())) {
+        $this->objects[] = qp($el)->parent('a');
       }
     }
   }
@@ -86,14 +86,14 @@ class aLinkTextDoesNotBeginWithRedundantWord extends QuailCustomTest {
     $this->getRedundantString();
     foreach($this->q('a') as $el) {
       $text = '';
-      if(pq($el)->find('img:first')->length) {
-        $text = pq($el)->find('img:first')->attr('alt');
+      if(qp($el)->find('img:first')->length) {
+        $text = qp($el)->find('img:first')->attr('alt');
       }
-      $text .= pq($el)->text();
+      $text .= qp($el)->text();
       $text = strtolower($text);
       foreach($this->redundant as $phrase) {
         if(strpos($text, $phrase) !== FALSE) {
-          $this->objects[] = pq($el);
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -120,8 +120,8 @@ class aLinksAreSeperatedByPrintableCharacters extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('a') as $el) {
-		  if(pq($el)->next('a')->length && $this->isUnreadable($el->nextSibling->wholeText)) {
-  		  $this->objects[] = pq($el);
+		  if(qp($el)->next('a')->length && $this->isUnreadable($el->nextSibling->wholeText)) {
+  		  $this->objects[] = qp($el);
   		}
 	  }
   }
@@ -140,8 +140,8 @@ class aMustContainText extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('a') as $el) {
-      if(!$this->containsReadableText(pq($el)) && !(pq($el)->attr('name') && !pq($el)->attr('href'))) {
-        $this->objects[] = pq($el);
+      if(!$this->containsReadableText(qp($el)) && !(qp($el)->attr('name') && !qp($el)->attr('href'))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -163,8 +163,8 @@ class aSuspiciousLinkText extends QuailCustomTest {
   function run() {
     $this->getStrings();
     foreach($this->q('a') as $el) {
-      if(in_array(trim(pq($el)->text()), $this->suspicious)) {
-        $this->objects[] = pq($el);
+      if(in_array(trim(qp($el)->text()), $this->suspicious)) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -192,9 +192,9 @@ class blockquoteUseForQuotations extends QuailCustomTest {
    */
   function run() {
 		foreach($this->q('p') as $el) {
-			if(in_array(substr(trim(pq($el)->text()), 0, 1), array('"', "'")) &&
-			   in_array(substr(trim(pq($el)->text()), -1, 1), array('"', "'"))) {
-				$this->objects[] = pq($el);
+			if(in_array(substr(trim(qp($el)->text()), 0, 1), array('"', "'")) &&
+			   in_array(substr(trim(qp($el)->text()), -1, 1), array('"', "'"))) {
+				$this->objects[] = qp($el);
 			}
 		}
 	}
@@ -216,18 +216,18 @@ class documentAbbrIsUsed extends QuailCustomTest {
    */
   function run() {
     foreach($this->q($this->acronym_tag .'[title]') as $el) {
-			$predefined[strtoupper(trim(pq($el)->text()))] = pq($el)->attr('title');
+			$predefined[strtoupper(trim(qp($el)->text()))] = qp($el)->attr('title');
 		}
 		$already_reported = array();
 		foreach($this->q('p, div, h1, h2, h3, h4, h5') as $el) {
-			$words = explode(' ', pq($el)->text());
-			if(count($words) > 1 && strtoupper(pq($el)->text()) != pq($el)->text()) {
+			$words = explode(' ', qp($el)->text());
+			if(count($words) > 1 && strtoupper(qp($el)->text()) != qp($el)->text()) {
 				foreach($words as $word) {
 					$word = preg_replace("/[^a-zA-Zs]/", "", $word);
 					if(strtoupper($word) == $word && strlen($word) > 1 && !isset($predefined[strtoupper($word)]))
 
 						if(!isset($already_reported[strtoupper($word)])) {
-							$this->objects[] = pq($el);
+							$this->objects[] = qp($el);
 						}
 						$already_reported[strtoupper($word)] = true;
 				}
@@ -260,10 +260,10 @@ class documentIDsMustBeUnique extends QuailCustomTest {
   function run() {
     $ids = array();
     foreach ($this->q('*[id]') as $el) {
-      if(isset($ids[pq($el)->attr('id')])) {
-        $this->objects[] = pq($el);
+      if(isset($ids[qp($el)->attr('id')])) {
+        $this->objects[] = qp($el);
       }
-      $ids[pq($el)->attr('id')] = pq($el)->attr('id');
+      $ids[qp($el)->attr('id')] = qp($el)->attr('id');
     }
   }
 }
@@ -275,8 +275,8 @@ class documentIsReadable extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('body *') as $el) {
-      if(strlen(trim(strip_tags(pq($el)->text()))) ||
-         strlen(trim(strip_tags(pq($el)->attr('alt'))))) {
+      if(strlen(trim(strip_tags(qp($el)->text()))) ||
+         strlen(trim(strip_tags(qp($el)->attr('alt'))))) {
         return;
       }
     }
@@ -299,8 +299,8 @@ class documentLangIsISO639Standard extends QuailCustomTest {
    */
   function run() {
     $this->getLanguages();
-    if(!in_array(strtolower(pq('html:first')->attr('lang')), $this->langauges)) {
-      $this->objects[] = pq('html:first');
+    if(!in_array(strtolower(qp('html:first')->attr('lang')), $this->langauges)) {
+      $this->objects[] = qp('html:first');
     }
   }
 
@@ -328,7 +328,7 @@ class doctypeProvided extends QuailCustomTest {
     if(!property_exists($this->document->document, 'doctype') ||
        !property_exists($this->document->document->doctype, 'publicId') ||
        !$this->document->document->doctype->publicId) {
-			   $this->objects[] = pq('html');
+			   $this->objects[] = qp('html');
 		}
   }
 }
@@ -348,10 +348,10 @@ class documentIsWrittenClearly extends quailTest {
   function run() {
     $textAnalysis = new TextStatistics();
     foreach($this->q('p, div, li, h1, h2, h3, h4, h5') as $el) {
-      $text = strip_tags(trim(pq($el)->text()));
+      $text = strip_tags(trim(qp($el)->text()));
       if(str_word_count($text) > 25) {
         if($textAnalysis->flesch_kincaid_reading_ease($text) < 60) {
-          $this->objects[] = pq($el);
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -374,7 +374,7 @@ class documentStrictDocType extends QuailCustomTest {
    */
   function run() {
     if(!property_exists($this->document->document, 'doctype')) {
-      $this->objects[] = pq('html');
+      $this->objects[] = qp('html');
       return;
     }
 		foreach($this->parameters as $parameter) {
@@ -383,7 +383,7 @@ class documentStrictDocType extends QuailCustomTest {
 		      return;
 	     }
 		}
-		$this->objects[] = pq('html');
+		$this->objects[] = qp('html');
   }
 }
 
@@ -399,7 +399,7 @@ class documentValidatesToDocType extends QuailCustomTest {
    */
   function run() {
     if(!@$this->document->document->validate()) {
-			$this->objects[] = pq('html');
+			$this->objects[] = qp('html');
     }
   }
 }
@@ -416,8 +416,8 @@ class documentTitleIsShort extends QuailCustomTest {
    * See QuailTest::run()
    */
   function run() {
-    if(strlen(trim(pq('head title:first')->text())) > 150) {
-      $this->objects[] = pq('head title:first');
+    if(strlen(trim(qp('head title:first')->text())) > 150) {
+      $this->objects[] = qp('head title:first');
     }
   }
 }
@@ -438,10 +438,10 @@ class documentVisualListsAreMarkedUp extends QuailCustomTest {
   function run() {
     foreach($this->q('p, div, h1, h2, h3, h4, h5, h6') as $el) {
       foreach($this->list_cues as $cue) {
-				$first = stripos(pq($el)->text(), $cue);
-				$second = strripos(pq($el)->text(), $cue);
+				$first = stripos(qp($el)->text(), $cue);
+				$second = strripos(qp($el)->text(), $cue);
 				if($first && $second && $first != $second) {
-					$this->objects[] = pq($el);
+					$this->objects[] = qp($el);
 				}
 			}
     }
@@ -463,7 +463,7 @@ class embedHasAssociatedNoEmbed extends QuailCustomTest {
       return null;
     }
     foreach($this->q('embed') as $el) {
-      $this->objects[] = pq($el);
+      $this->objects[] = qp($el);
     }
   }
 }
@@ -485,12 +485,12 @@ class emoticonsExcessiveUse extends QuailCustomTest {
     $this->getEmoticons();
     foreach($this->q('p, div, h1, h2, h3, h4, h5, h6') as $el) {
 			$count = 0;
-			$words = explode(' ', pq($el)->text());
+			$words = explode(' ', qp($el)->text());
 			foreach($words as $word) {
 				if(in_array(trim($word), $this->emoticons)) {
 					$count++;
 					if($count > 4) {
-						$this->objects[] = pq($el);
+						$this->objects[] = qp($el);
 					}
 				}
 			}
@@ -516,14 +516,14 @@ class emoticonsMissingAbbr extends emoticonsExcessiveUse {
     $this->getEmoticons();
     $count = 0;
     foreach($this->q('p, div, h1, h2, h3, h4, h5,h6') as $el) {
-			$clone = pq($el)->clone();
+			$clone = qp($el)->clone();
 			$clone->remove('abbr, acronym');
 			$words = explode(' ', $clone->text());
 			foreach($words as $word) {
 				if(in_array($word, $this->emoticons)) {
 					$count++;
 					if($count > 4) {
-						$this->objects[] = pq($el);
+						$this->objects[] = qp($el);
 					}
 				}
 			}
@@ -544,15 +544,15 @@ class headersUseToMarkSections extends QuailCustomTest {
   function run() {
     foreach($this->q('p') as $el) {
       $set = false;
-      foreach(pq($el)->find('strong:first, em:first, i:first, b:first') as $indicator) {
-        if(trim(pq($el)->text()) == trim(pq($indicator)->text())) {
-          $this->objects[] = pq($el);
+      foreach(qp($el)->find('strong:first, em:first, i:first, b:first') as $indicator) {
+        if(trim(qp($el)->text()) == trim(qp($indicator)->text())) {
+          $this->objects[] = qp($el);
           $set = true;
         }
       }
       if(!$set) {
-        if(pq($el)->css('font-weight') == 'bold') {
-          $this->objects[] = pq($el);
+        if(qp($el)->css('font-weight') == 'bold') {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -571,8 +571,8 @@ class inputImageAltIsShort extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('input[type=image][alt]') as $el) {
-      if(strlen(trim(pq($el)->attr('alt'))) > 150) {
-        $this->objects[] = pq($el);
+      if(strlen(trim(qp($el)->attr('alt'))) > 150) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -590,8 +590,8 @@ class inputImageAltIsNotFileName extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('input[type=image][alt]') as $el) {
-      if(pq($el)->attr('alt') == pq($el)->attr('src')) {
-        $this->objects[] = pq($el);
+      if(qp($el)->attr('alt') == qp($el)->attr('src')) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -613,8 +613,8 @@ class inputImageAltNotRedundant extends QuailCustomTest {
   function run() {
     $this->getRedundantString();
     foreach($this->q('input[type=image][alt]') as $el) {
-      if(in_array(strtolower(trim(pq($el)->attr('alt'))), $this->redundant)) {
-        $this->objects[] = pq($el);
+      if(in_array(strtolower(trim(qp($el)->attr('alt'))), $this->redundant)) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -641,8 +641,8 @@ class imgAltIsDifferent extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img') as $el) {
-      if(pq($el)->attr('src') == pq($el)->attr('alt')) {
-        $this->objects[] = pq($el);
+      if(qp($el)->attr('src') == qp($el)->attr('alt')) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -661,8 +661,8 @@ class imgAltIsTooLong extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img[alt]') as $el) {
-      if(strlen(pq($el)->attr('alt')) > 100) {
-        $this->objects[] = pq($el);
+      if(strlen(qp($el)->attr('alt')) > 100) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -682,11 +682,11 @@ class imgImportantNoSpacerAlt extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img[alt]') as $el) {
-      if($this->isUnreadable(pq($el)->attr('alt')) &&
-         intval(pq($el)->css('width')) > 50 &&
-         intval(pq($el)->css('height')) > 50
+      if($this->isUnreadable(qp($el)->attr('alt')) &&
+         intval(qp($el)->css('width')) > 50 &&
+         intval(qp($el)->css('height')) > 50
          ) {
-        $this->objects[] = pq($el);
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -707,7 +707,7 @@ class imgGifNoFlicker extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img[src$=.gif]') as $el) {
-      $path = $this->getPath(pq($el)->attr('src'));
+      $path = $this->getPath(qp($el)->attr('src'));
       if($this->validURL($path)) {
         $file = file_get_contents($path);
   			if($file) {
@@ -727,7 +727,7 @@ class imgGifNoFlicker extends QuailCustomTest {
 
 
   			  if($total_delay > 0) {
-            $this->objects[] = pq($el);
+            $this->objects[] = qp($el);
           }
   			}
   		}
@@ -747,9 +747,9 @@ class imgHasLongDesc extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img[longdesc]') as $el) {
-      if(pq($el)->attr('longdesc') == pq($el)->attr('alt') ||
-        !$this->validURL(pq($el)->attr('longdesc'))) {
-        $this->objects[] = pq($el);
+      if(qp($el)->attr('longdesc') == qp($el)->attr('alt') ||
+        !$this->validURL(qp($el)->attr('longdesc'))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -768,11 +768,11 @@ class imgAltTextNotRedundant extends QuailCustomTest {
   function run() {
     $alts = array();
     foreach($this->q('img[alt]') as $el) {
-      $alt = md5(strtolower(trim(pq($el)->attr('alt'))));
-      if(isset($alts[$alt]) && pq($el)->attr('src') != $alts[$alt]) {
-        $this->objects[] = pq($el);
+      $alt = md5(strtolower(trim(qp($el)->attr('alt'))));
+      if(isset($alts[$alt]) && qp($el)->attr('src') != $alts[$alt]) {
+        $this->objects[] = qp($el);
       }
-      $alts[$alt] = pq($el)->attr('src');
+      $alts[$alt] = qp($el)->attr('src');
     }
   }
 }
@@ -790,9 +790,9 @@ class imgAltNotEmptyInAnchor extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('a img') as $el) {
-      if(!$el->hasAttribute('alt') || $this->isUnreadable(pq($el)->attr('alt'))) {
-        if($this->isUnreadable(pq($el)->parent('a:first')->html())) {
-          $this->objects[] = pq($el);
+      if(!$el->hasAttribute('alt') || $this->isUnreadable(qp($el)->attr('alt'))) {
+        if($this->isUnreadable(qp($el)->parent('a:first')->html())) {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -811,8 +811,8 @@ class imgWithMathShouldHaveMathEquivalent extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('img:not(img:has(math), img:has(tagName))') as $el) {
-      if(!pq($el)->parent()->find('math')->length) {
-        $this->objects[] = pq($el);
+      if(!qp($el)->parent()->find('math')->length) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -831,10 +831,10 @@ class labelMustBeUnique extends QuailCustomTest {
   function run() {
     $labels = array();
     foreach($this->q('label[for]') as $el) {
-      if(isset($labels[pq($el)->attr('for')])) {
-        $this->objects[] = pq($el);
+      if(isset($labels[qp($el)->attr('for')])) {
+        $this->objects[] = qp($el);
       }
-      $labels[pq($el)->attr('for')] = pq($el)->attr('for');
+      $labels[qp($el)->attr('for')] = qp($el)->attr('for');
     }
   }
 }
@@ -851,8 +851,8 @@ class listNotUsedForFormatting extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('ol, ul') as $el) {
-      if(pq($el)->find('li')->length < 2) {
-        $this->objects[] = pq($el);
+      if(qp($el)->find('li')->length < 2) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -870,9 +870,9 @@ class preShouldNotBeUsedForTabularLayout extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('pre') as $el) {
-      $rows = preg_split('/[\n\r]+/', pq($el)->text());
-			if(count($rows) > 1 && (strpos(pq($el)->text(), "\t") !== FALSE || strpos(pq($el)->text(), '  ') !== FALSE)) {
-				$this->objects[] = pq($el);
+      $rows = preg_split('/[\n\r]+/', qp($el)->text());
+			if(count($rows) > 1 && (strpos(qp($el)->text(), "\t") !== FALSE || strpos(qp($el)->text(), '  ') !== FALSE)) {
+				$this->objects[] = qp($el);
 		  }
     }
   }
@@ -892,9 +892,9 @@ class tabIndexFollowsLogicalOrder extends QuailCustomTest {
   function run() {
     $index = 0;
 		foreach($this->q('*[tabindex]') as $el) {
-			if(is_numeric(pq($el)->attr('tabindex'))
-				&& intval(pq($el)->attr('tabindex')) != $index + 1) {
-					$this->objects[] = pq($el);
+			if(is_numeric(qp($el)->attr('tabindex'))
+				&& intval(qp($el)->attr('tabindex')) != $index + 1) {
+					$this->objects[] = qp($el);
 		  }
 			$index++;
 		}
@@ -914,8 +914,8 @@ class tableLayoutHasNoSummary extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table[summary]') as $el) {
-      if(!$this->isDataTable(pq($el)) && !$this->isUnreadable(pq($el)->attr('summary'))) {
-        $this->objects[] = pq($el);
+      if(!$this->isDataTable(qp($el)) && !$this->isUnreadable(qp($el)->attr('summary'))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -934,8 +934,8 @@ class tableLayoutHasNoCaption extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table') as $el) {
-      if(!$this->isDataTable(pq($el)) && pq($el)->find('caption')->length) {
-        $this->objects[] = pq($el);
+      if(!$this->isDataTable(qp($el)) && qp($el)->find('caption')->length) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -954,8 +954,8 @@ class tableLayoutMakesSenseLinearized extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table') as $el) {
-      if(!$this->isDataTable(pq($el))) {
-        $this->objects[] = pq($el);
+      if(!$this->isDataTable(qp($el))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -973,8 +973,8 @@ class tableLayoutDataShouldNotHaveTh extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table') as $el) {
-      if(!$this->isDataTable(pq($el)) && pq($el)->find('th')->length) {
-        $this->objects[] = pq($el);
+      if(!$this->isDataTable(qp($el)) && qp($el)->find('th')->length) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -992,8 +992,8 @@ class tableUsesAbbreviationForHeader extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('th:not(th[abbr])') as $el) {
-      if(strlen(trim(pq($el)->text())) > 20) {
-        $this->objects[] = pq($el);
+      if(strlen(trim(qp($el)->text())) > 20) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1011,8 +1011,8 @@ class tableHeaderLabelMustBeTerse extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('th, table tr:first td') as $el) {
-      if(strlen(trim(pq($el)->text())) > 20 && (!$el->hasAttribute('abbr') || strlen(trim(pq($el)->attr('abbr'))) > 20)) {
-        $this->objects[] = pq($el);
+      if(strlen(trim(qp($el)->text())) > 20 && (!$el->hasAttribute('abbr') || strlen(trim(qp($el)->attr('abbr'))) > 20)) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1031,8 +1031,8 @@ class tableSummaryDoesNotDuplicateCaption extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table[summary]:has(caption)') as $el) {
-      if(strtolower(trim(pq($el)->attr('summary'))) == strtolower(trim(pq($el)->find('caption:first')->text()))) {
-        $this->objects[] = pq($el);
+      if(strtolower(trim(qp($el)->attr('summary'))) == strtolower(trim(qp($el)->find('caption:first')->text()))) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1052,11 +1052,11 @@ class tableWithMoreHeadersUseID extends QuailCustomTest {
     foreach($this->q('table:has(th)') as $el) {
       $rows = 0;
       foreach($this->q($el)->find('tr') as $tr) {
-        if(pq($tr)->find('th')) {
+        if(qp($tr)->find('th')) {
           $rows++;
         }
-        if($rows > 1 && !pq($tr)->find('th[id]')->length) {
-          $this->objects[] = pq($el);
+        if($rows > 1 && !qp($tr)->find('th[id]')->length) {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -1075,8 +1075,8 @@ class tabularDataIsInTable extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('pre') as $el) {
-      if(strpos(pq($el)->text(), "\t") !== FALSE) {
-        $this->objects[] = pq($el);
+      if(strpos(qp($el)->text(), "\t") !== FALSE) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1100,17 +1100,17 @@ class formWithRequiredLabel extends QuailCustomTest {
     $labels = array();
     $last_style = false;
     foreach($this->q('label') as $el) {
-      $text = strtolower(pq($el)->text());
+      $text = strtolower(qp($el)->text());
       foreach($this->redundant as $required_text) {
         if(strpos($text, $required_text) !== false) {
-          if(!pq('#'. pq($el)->attr('for'))->attr('aria-required')) {
-            $this->objects[] = pq($el);
+          if(!qp('#'. qp($el)->attr('for'))->attr('aria-required')) {
+            $this->objects[] = qp($el);
           }
         }
       }
-      $current_style = $this->getStyleHash(pq($el));
+      $current_style = $this->getStyleHash(qp($el));
       if($last_style && ($current_style != $last_style)) {
-        $this->objects[] = pq($el);
+        $this->objects[] = qp($el);
       }
       $last_style = $current_style;
     }
@@ -1142,8 +1142,8 @@ class inputCheckboxRequiresFieldset extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('input[type=checkbox]') as $el) {
-      if(!pq($el)->parents('fieldset')->length) {
-        $this->objects[] = pq($el);
+      if(!qp($el)->parents('fieldset')->length) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1163,17 +1163,17 @@ class imgMapAreasHaveDuplicateLink extends QuailCustomTest {
   function run() {
     $links = array();
     foreach($this->q('a') as $el) {
-      $links[pq($el)->attr('href')] = pq($el)->attr('href');
+      $links[qp($el)->attr('href')] = qp($el)->attr('href');
     }
     foreach($this->q('img[usemap]') as $el) {
-      $map = (pq(pq($el)->attr('usemap'))->length)
-             ? pq(pq($el)->attr('usemap'))
-             : pq('map[name='. str_replace('#', '', pq($el)->attr('usemap')) .']');
+      $map = ($this->q(qp($el)->attr('usemap'))->length)
+             ? $this->q(qp($el)->attr('usemap'))
+             : qp('map[name='. str_replace('#', '', qp($el)->attr('usemap')) .']');
 
       if($map) {
         foreach($map->find('area') as $area) {
-          if(!in_array(pq($area)->attr('href'), $links)) {
-            $this->objects[] = pq($el);
+          if(!in_array(qp($area)->attr('href'), $links)) {
+            $this->objects[] = qp($el);
           }
         }
       }
@@ -1194,7 +1194,7 @@ class siteMap extends QuailCustomTest {
   function run() {
     $this->loadString();
     foreach($this->q('a') as $el) {
-      $text = trim(strtolower(pq($el)->text()));
+      $text = trim(strtolower(qp($el)->text()));
       foreach($this->strings as $string) {
         if(strpos($text, $string) !== FALSE) {
           return;
@@ -1225,8 +1225,8 @@ class tableUseColGroup extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('table') as $el) {
-      if($this->isDataTable(pq($el)) && !pq($el)->find('colgroup')->length) {
-        $this->objects[] = pq($el);
+      if($this->isDataTable(qp($el)) && !qp($el)->find('colgroup')->length) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1253,20 +1253,20 @@ class pNotUsedAsHeader extends QuailCustomTest {
     $priorCSS = array();
     $textAnalysis = new TextStatistics();
     foreach($this->q('p') as $el) {
-      if($textAnalysis->sentence_count(pq($el)->text()) < 3) {
-        if(pq($el)->find('*:first-child')->get(0) &&
-           in_array(strtolower(pq($el)->find('*:first-child')->get(0)->tagName), $this->suspectTags) &&
-           pq($el)->find('*:first-child')->text() == pq($el)->text()) {
-            $this->objects[] = pq($el);
+      if($textAnalysis->sentence_count(qp($el)->text()) < 3) {
+        if(qp($el)->find('*:first-child')->get(0) &&
+           in_array(strtolower(qp($el)->find('*:first-child')->get(0)->tagName), $this->suspectTags) &&
+           qp($el)->find('*:first-child')->text() == qp($el)->text()) {
+            $this->objects[] = qp($el);
         }
         foreach($this->suspectCSS as $css) {
-          if(array_key_exists($css, $priorCSS) && pq($el)->css($css) != $priorCSS[$css]) {
-            $this->objects[] = pq($el);
+          if(array_key_exists($css, $priorCSS) && qp($el)->css($css) != $priorCSS[$css]) {
+            $this->objects[] = qp($el);
           }
-          $priorCSS[$css] = pq($el)->css($css);
+          $priorCSS[$css] = qp($el)->css($css);
         }
-        if(pq($el)->css('font-weight') == 'bold') {
-          $this->objects[] = pq($el);
+        if(qp($el)->css('font-weight') == 'bold') {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -1284,9 +1284,9 @@ class textIsNotSmall extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('body *') as $el) {
-      $size = pq($el)->css('font-size');
+      $size = qp($el)->css('font-size');
       if($size = $this->convertFontSize($size) && $size < 11) {
-        $this->objects[] = pq($el);
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1304,9 +1304,9 @@ class selectJumpMenus extends QuailCustomTest {
    */
   function run() {
     foreach($this->q('select') as $el) {
-      if(pq($el)->parents('form')->length == 0 ||
-         pq($el)->parents('form')->find('input[type=submit]')->length == 0) {
-        $this->objects[] = pq($el);
+      if(qp($el)->parents('form')->length == 0 ||
+         qp($el)->parents('form')->find('input[type=submit]')->length == 0) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1324,9 +1324,9 @@ class QuailLabelTest extends QuailCustomTest {
    */
   function run() {
     foreach($this->q($this->options['selector']) as $el) {
-      if(!pq($el)->parent('label')->length) {
-        if(!pq($el)->attr('id') || pq('label[for='. str_replace('#', '', pq($el)->attr('id')) .']')->length == 0) {
-          $this->objects[] = pq($el);
+      if(!qp($el)->parent('label')->length) {
+        if(!qp($el)->attr('id') || $this->q('label[for='. str_replace('#', '', qp($el)->attr('id')) .']')->length == 0) {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -1344,12 +1344,12 @@ class QuailLabelProximityTest extends QuailCustomTest {
    */
   function run() {
     foreach($this->q($this->options['selector']) as $el) {
-      $label = pq('label[for='. str_replace('#', '', pq($el)->attr('id')) .']');
+      $label = qp('label[for='. str_replace('#', '', qp($el)->attr('id')) .']');
       if(!$label) {
         return;
       }
-      if(pq($el)->parent(':first') != pq($label)->parent(':first')) {
-        $this->objects[] = pq($el);
+      if(qp($el)->parent(':first') != qp($label)->parent(':first')) {
+        $this->objects[] = qp($el);
       }
     }
   }
@@ -1371,7 +1371,7 @@ class QuailHeaderTest extends QuailCustomTest {
 
       $number = intval(substr($el->tagName, -1, 1));
       if($next_heading && ($number - 1 > $current || $number + 1 < $current)) {
-        $this->objects[] = pq($el);
+        $this->objects[] = qp($el);
       }
       if($number == $current) {
         $next_heading = $el;
@@ -1395,9 +1395,9 @@ class QuailEventTest extends QuailCustomTest {
    */
   function run() {
     foreach($this->q($this->options['selector']) as $el) {
-      if(pq($el)->attr($this->options['searchEvent'])) {
-        if(!isset($this->options['correspondingEvent']) || !pq($el)->attr($this->options['correspondingEvent'])) {
-          $this->objects[] = pq($el);
+      if(qp($el)->attr($this->options['searchEvent'])) {
+        if(!isset($this->options['correspondingEvent']) || !qp($el)->attr($this->options['correspondingEvent'])) {
+          $this->objects[] = qp($el);
         }
       }
     }
@@ -1421,22 +1421,22 @@ class QuailColorTest extends QuailCustomTest {
   function run() {
     $this->getColorNames();
     foreach($this->q($this->options['selector']) as $el) {
-      if(pq($el)->css('color') && pq($el)->css('background-color')) {
+      if(qp($el)->css('color') && qp($el)->css('background-color')) {
         if($this->options['algorithm'] == 'wai') {
-          if(!$this->compareWAIColors(pq($el)->css('color'), pq($el)->css('background-color'))) {
-            $this->objects[] = pq($el);
+          if(!$this->compareWAIColors(qp($el)->css('color'), qp($el)->css('background-color'))) {
+            $this->objects[] = qp($el);
           }
         }
         if($this->options['algorithm'] == 'wcag') {
-          if(!$this->compareWCAGColors(pq($el)->css('color'), pq($el)->css('background-color'))) {
-            $this->objects[] = pq($el);
+          if(!$this->compareWCAGColors(qp($el)->css('color'), qp($el)->css('background-color'))) {
+            $this->objects[] = qp($el);
           }
         }
       }
     }
     if(isset($this->options['bodyForegroundAttribute']) && isset($this->options['bodyBackgroundAttribute'])) {
-      $foreground = pq('body:first')->attr($this->options['bodyForegroundAttribute']);
-      $background = pq('body:first')->attr($this->options['bodyBackgroundAttribute']);
+      $foreground = qp('body:first')->attr($this->options['bodyForegroundAttribute']);
+      $background = qp('body:first')->attr($this->options['bodyBackgroundAttribute']);
       if(!$foreground) {
         $foreground = '#000000';
       }
@@ -1445,12 +1445,12 @@ class QuailColorTest extends QuailCustomTest {
       }
       if($this->options['algorithm'] == 'wai') {
         if(!$this->compareWAIColors($foreground, $background)) {
-          $this->objects[] = pq('body:first');
+          $this->objects[] = qp('body:first');
         }
       }
       if($this->options['algorithm'] == 'wcag') {
         if(!$this->compareWCAGColors($foreground, $background)) {
-          $this->objects[] = pq('body:first');
+          $this->objects[] = qp('body:first');
         }
       }
     }
@@ -1681,22 +1681,22 @@ class QuailPlaceholderTest extends QuailCustomTest {
     foreach($this->q($this->options['selector']) as $el) {
       if($this->options['attribute']) {
         $attr = $this->options['attribute'];
-        if($this->options['empty'] && $this->isUnreadable(pq($el)->attr($attr))) {
-          $this->objects[] = pq($el);
+        if($this->options['empty'] && $this->isUnreadable(qp($el)->attr($attr))) {
+          $this->objects[] = qp($el);
         }
-        if (strlen(pq($el)->attr($attr)) && (
-          in_array(pq($el)->attr($attr), $this->placeholders) ||
-          preg_match("/^([0-9]*)(k|kb|mb|k bytes|k byte)?$/", strtolower(pq($el)->attr($attr))))) {
-            $this->objects[] = pq($el);
+        if (strlen(qp($el)->attr($attr)) && (
+          in_array(qp($el)->attr($attr), $this->placeholders) ||
+          preg_match("/^([0-9]*)(k|kb|mb|k bytes|k byte)?$/", strtolower(qp($el)->attr($attr))))) {
+            $this->objects[] = qp($el);
         }
 
       }
       elseif($this->options['content']) {
-        if(isset($this->options['empty']) && $this->options['empty'] && $this->isUnreadable(pq($el)->text())) {
-          $this->objects[] = pq($el);
+        if(isset($this->options['empty']) && $this->options['empty'] && $this->isUnreadable(qp($el)->text())) {
+          $this->objects[] = qp($el);
         }
-        if(in_array(trim(pq($el)->text()), $this->placeholders)) {
-          $this->objects[] = pq($el);
+        if(in_array(trim(qp($el)->text()), $this->placeholders)) {
+          $this->objects[] = qp($el);
         }
       }
     }

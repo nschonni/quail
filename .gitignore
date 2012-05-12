@@ -4,3 +4,4 @@ jquery/tests/jquery-qunit
 node/*
 php/tests/selector.php
 php/jparser
+.DS_Store
